@@ -92,7 +92,7 @@ ALTER ROLE crwebdb SUPERUSER;
 ## III. Create Tables Functions and Insert Data
 
 ### 1. Access the PostgreSQL with pgAdmin
-#### >>> To access `crwebdb` database using pgAdmin
+#### >>> Access `crwebdb` database using pgAdmin
 
 ### 2. Create Tables
 #### >>> Run this script below to create 4 tables:
