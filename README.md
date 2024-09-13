@@ -18,11 +18,6 @@ docker run --name postgres-db -p 5432:5432 --restart always -e POSTGRES_PASSWORD
 #### >>> -e POSTGRES_PASSWORD=Passw0rd: Sets the password for the PostgreSQL superuser "postgres" to "Passw0rd".
 #### >>> -d: Runs the container in the background.
 
-### 3. Access the PostgreSQL Container
-#### >>> To access the PostgreSQL container using psql, run the following command:
-```
-docker exec -it postgres-db psql -U postgres
-```
 #### >>> This command connects you to the PostgreSQL server running in the container as the user "postgres".
 
 ## II. Setup Database
