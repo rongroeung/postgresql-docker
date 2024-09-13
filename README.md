@@ -133,7 +133,7 @@ CREATE TABLE tbl_youtube (
 ```
 -- Create a function for inserting a row into tbl_content
 CREATE OR REPLACE FUNCTION insert_into_tbl_content(
-    p_id VARCHAR(15),
+    p_id VARCHAR(31),
     p_title VARCHAR(255),
     p_kh_title VARCHAR(511),
     p_sub_title VARCHAR(255),
@@ -148,10 +148,10 @@ $$ LANGUAGE plpgsql;
 
 -- Create a function for inserting a row into tbl_description
 CREATE OR REPLACE FUNCTION insert_into_tbl_description(
-    p_id VARCHAR(15),
+    p_id VARCHAR(31),
     p_text VARCHAR(4159),
     p_kh_text VARCHAR(8319),
-    p_content_id VARCHAR(15)
+    p_content_id VARCHAR(31)
 )
 RETURNS VOID AS $$
 BEGIN
@@ -162,10 +162,10 @@ $$ LANGUAGE plpgsql;
 
 -- Create a function for inserting a row into tbl_media
 CREATE OR REPLACE FUNCTION insert_into_tbl_media(
-    p_id VARCHAR(15),
+    p_id VARCHAR(31),
     p_url VARCHAR(255),
     p_name VARCHAR(255),
-    p_content_id VARCHAR(15)
+    p_content_id VARCHAR(31)
 )
 RETURNS VOID AS $$
 BEGIN
@@ -176,7 +176,7 @@ $$ LANGUAGE plpgsql;
 
 -- Create a function for inserting a row into tbl_youtube
 CREATE OR REPLACE FUNCTION insert_into_tbl_youtube(
-    p_id VARCHAR(15),
+    p_id VARCHAR(31),
     p_title VARCHAR(255),
     p_kh_title VARCHAR(511),
     p_video_url VARCHAR(255),
@@ -184,7 +184,7 @@ CREATE OR REPLACE FUNCTION insert_into_tbl_youtube(
     p_publish_date VARCHAR(255),
     p_thumbnail_url VARCHAR(255),
     p_thumbnail_name VARCHAR(255),
-    p_content_id VARCHAR(15)
+    p_content_id VARCHAR(31)
 )
 RETURNS VOID AS $$
 BEGIN
