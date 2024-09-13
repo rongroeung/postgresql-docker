@@ -66,7 +66,13 @@ ALTER ROLE crwebdb SUPERUSER;
 ```
 #### >>> This command will grant superuser privileges to the crwebdb user, providing them with all permissions in the PostgreSQL database.
 
-### 8. Exit PostgreSQL Prompt
+### 8. Verify User Creation
+#### >>> You can verify that the user has been created and granted all privileges by the following command:
+```
+\du
+```
+
+### 9. Exit PostgreSQL Prompt
 #### >>> Once you have created the user and granted privileges, exit the PostgreSQL prompt:
 ```
 \q
