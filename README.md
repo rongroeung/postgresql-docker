@@ -25,18 +25,6 @@ docker exec -it postgres-db psql -U postgres
 ```
 #### >>> This command connects you to the PostgreSQL server running in the container as the user "postgres".
 
-### 4. Enable Nginx to Start on Boot
-#### >>> To ensure that Nginx starts automatically when the system boots up, run:
-```
-systemctl enable nginx
-```
-
-### 5. Enable Nginx to Start on Boot
-#### >>> You can check the status of Nginx to ensure it is running properly:
-```
-systemctl status nginx
-```
-
 ## II. Setup Database
 
 ### 1. Access the PostgreSQL Container
