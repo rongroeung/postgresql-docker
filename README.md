@@ -5,13 +5,13 @@
 ### 1. Pull the PostgreSQL Image
 #### >>> Use the following command to pull the official PostgreSQL image:
 ```
-docker pull postgres
+sudo docker pull postgres
 ```
 
 ### 2. Run a PostgreSQL Container
 #### >>> You can run a PostgreSQL container with the following command:
 ```
-docker run --name postgres-db -p 5432:5432 --restart always -e POSTGRES_PASSWORD=Passw0rd -d postgres
+sudo docker run --name postgres-db -p 5432:5432 --restart always -e POSTGRES_PASSWORD=Passw0rd -d postgres
 ```
 #### >>> --name postgres-db: Assigns a name to the container ("postgres-db" in this case).
 #### >>> --restart always: Set restart policy of container to always
@@ -25,7 +25,7 @@ docker run --name postgres-db -p 5432:5432 --restart always -e POSTGRES_PASSWORD
 ### 1. Access the PostgreSQL Container
 #### >>> To access the PostgreSQL container using psql, run the following command:
 ```
-docker exec -it postgres-db psql -U postgres
+sudo docker exec -it postgres-db psql -U postgres
 ```
 #### >>> This command connects you to the PostgreSQL server running in the container as the user "postgres".
 
