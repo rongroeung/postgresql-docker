@@ -214,7 +214,8 @@ SELECT insert_into_tbl_youtube('your_id_value', 'your_title_value', 'your_kh_tit
 ```
 
 ### 4. Insert Data
-#### >>> This is the actual script to call functions to insert data:
+#### >>> Restore Backup Data by using file `crwebdb_20240920`
+#### >>> Optionally, you can use this actual script to call functions to insert data:
 ```
 -- Home Page
 -- Insert data for content_id: 01001001
