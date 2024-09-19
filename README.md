@@ -88,34 +88,37 @@ ALTER ROLE crwebdb SUPERUSER;
 ```
 -- Create table tbl_content
 CREATE TABLE tbl_content (
-    id VARCHAR(31) PRIMARY KEY,
+    id VARCHAR(31) PRIMARY KEY NOT NULL,
     title VARCHAR(255),
     kh_title VARCHAR(511),
     sub_title VARCHAR(255),
-    kh_sub_title VARCHAR(511)
+    kh_sub_title VARCHAR(511),
+    blocked BOOLEAN
 );
 
 -- Create table tbl_description
 CREATE TABLE tbl_description (
-    id VARCHAR(31) PRIMARY KEY,
+    id VARCHAR(31) PRIMARY KEY NOT NULL,
     text VARCHAR(4159),
     kh_text VARCHAR(8319),
+    blocked BOOLEAN,
     content_id VARCHAR(31),
     FOREIGN KEY (content_id) REFERENCES tbl_content(id)
 );
 
 -- Create table tbl_media
 CREATE TABLE tbl_media (
-    id VARCHAR(31) PRIMARY KEY,
+    id VARCHAR(31) PRIMARY KEY NOT NULL,
     url VARCHAR(255),
     name VARCHAR(255),
+    blocked BOOLEAN,
     content_id VARCHAR(31),
     FOREIGN KEY (content_id) REFERENCES tbl_content(id)
 );
 
 -- Create table tbl_youtube
 CREATE TABLE tbl_youtube (
-    id VARCHAR(31) PRIMARY KEY,
+    id VARCHAR(31) PRIMARY KEY NOT NULL,
     title VARCHAR(255),
     kh_title VARCHAR(511),
     video_url VARCHAR(255),
@@ -123,6 +126,7 @@ CREATE TABLE tbl_youtube (
     publish_date VARCHAR(255),
     thumbnail_url VARCHAR(255),
     thumbnail_name VARCHAR(255),
+    blocked BOOLEAN,
     content_id VARCHAR(31),
     FOREIGN KEY (content_id) REFERENCES tbl_content(id)
 );
@@ -137,12 +141,13 @@ CREATE OR REPLACE FUNCTION insert_into_tbl_content(
     p_title VARCHAR(255),
     p_kh_title VARCHAR(511),
     p_sub_title VARCHAR(255),
-    p_kh_sub_title VARCHAR(511)
+    p_kh_sub_title VARCHAR(511),
+    p_blocked BOOLEAN
 )
 RETURNS VOID AS $$
 BEGIN
-    INSERT INTO public.tbl_content(id, title, kh_title, sub_title, kh_sub_title)
-    VALUES (p_id, p_title, p_kh_title, p_sub_title, p_kh_sub_title);
+    INSERT INTO public.tbl_content(id, title, kh_title, sub_title, kh_sub_title, blocked)
+    VALUES (p_id, p_title, p_kh_title, p_sub_title, p_kh_sub_title, p_blocked);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -151,12 +156,13 @@ CREATE OR REPLACE FUNCTION insert_into_tbl_description(
     p_id VARCHAR(31),
     p_text VARCHAR(4159),
     p_kh_text VARCHAR(8319),
+    p_blocked BOOLEAN,
     p_content_id VARCHAR(31)
 )
 RETURNS VOID AS $$
 BEGIN
-    INSERT INTO public.tbl_description(id, text, kh_text, content_id)
-    VALUES (p_id, p_text, p_kh_text, p_content_id);
+    INSERT INTO public.tbl_description(id, text, kh_text, blocked, content_id)
+    VALUES (p_id, p_text, p_kh_text, p_blocked, p_content_id);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -165,12 +171,13 @@ CREATE OR REPLACE FUNCTION insert_into_tbl_media(
     p_id VARCHAR(31),
     p_url VARCHAR(255),
     p_name VARCHAR(255),
+    p_blocked BOOLEAN,
     p_content_id VARCHAR(31)
 )
 RETURNS VOID AS $$
 BEGIN
-    INSERT INTO public.tbl_media(id, url, name, content_id)
-    VALUES (p_id, p_url, p_name, p_content_id);
+    INSERT INTO public.tbl_media(id, url, name, blocked, content_id)
+    VALUES (p_id, p_url, p_name, p_blocked, p_content_id);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -184,25 +191,26 @@ CREATE OR REPLACE FUNCTION insert_into_tbl_youtube(
     p_publish_date VARCHAR(255),
     p_thumbnail_url VARCHAR(255),
     p_thumbnail_name VARCHAR(255),
+    p_blocked BOOLEAN,
     p_content_id VARCHAR(31)
 )
 RETURNS VOID AS $$
 BEGIN
-    INSERT INTO public.tbl_youtube(id, title, kh_title, video_url, duration, publish_date, thumbnail_url, thumbnail_name, content_id)
-    VALUES (p_id, p_title, p_kh_title, p_video_url, p_duration, p_publish_date, p_thumbnail_url, p_thumbnail_name, p_content_id);
+    INSERT INTO public.tbl_youtube(id, title, kh_title, video_url, duration, publish_date, thumbnail_url, thumbnail_name, blocked, content_id)
+    VALUES (p_id, p_title, p_kh_title, p_video_url, p_duration, p_publish_date, p_thumbnail_url, p_thumbnail_name, p_blocked, p_content_id);
 END;
 $$ LANGUAGE plpgsql;
 ```
 #### >>> This is sample script to call functions to insert data:
 ```
 -- Call the function to insert a row into tbl_content
-SELECT insert_into_tbl_content('your_id_value', 'your_title_value', 'your_kh_title_value', 'your_sub_title_value', 'your_kh_sub_title_value');
+SELECT insert_into_tbl_content('your_id_value', 'your_title_value', 'your_kh_title_value', 'your_sub_title_value', 'your_kh_sub_title_value', false);
 -- Call the function to insert a row into tbl_description
-SELECT insert_into_tbl_description('your_id_value', 'your_text_value', 'your_kh_text_value', 'your_content_id_value');
+SELECT insert_into_tbl_description('your_id_value', 'your_text_value', 'your_kh_text_value', false, 'your_content_id_value');
 -- Call the function to insert a row into tbl_media
-SELECT insert_into_tbl_media('your_id_value', 'your_url_value', 'your_name_value', 'your_content_id_value');
+SELECT insert_into_tbl_media('your_id_value', 'your_url_value', 'your_name_value', false, 'your_content_id_value');
 -- Call the function to insert a row into tbl_youtube
-SELECT insert_into_tbl_youtube('your_id_value', 'your_title_value', 'your_kh_title_value', 'your_video_url_value', 'your_duration_value', 'your_publish_date_value', 'your_thumbnail_url_value', 'your_thumbnail_name_value', 'your_content_id_value');
+SELECT insert_into_tbl_youtube('your_id_value', 'your_title_value', 'your_kh_title_value', 'your_video_url_value', 'your_duration_value', 'your_publish_date_value', 'your_thumbnail_url_value', 'your_thumbnail_name_value', false, 'your_content_id_value');
 ```
 
 ### 4. Insert Data
