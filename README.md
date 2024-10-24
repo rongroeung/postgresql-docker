@@ -93,6 +93,7 @@ CREATE TABLE tbl_content (
     kh_title VARCHAR(511),
     sub_title VARCHAR(255),
     kh_sub_title VARCHAR(511),
+    create_time VARCHAR(255),
     blocked BOOLEAN
 );
 
@@ -142,12 +143,13 @@ CREATE OR REPLACE FUNCTION insert_into_tbl_content(
     p_kh_title VARCHAR(511),
     p_sub_title VARCHAR(255),
     p_kh_sub_title VARCHAR(511),
+    p_create_time VARCHAR(255),
     p_blocked BOOLEAN
 )
 RETURNS VOID AS $$
 BEGIN
-    INSERT INTO public.tbl_content(id, title, kh_title, sub_title, kh_sub_title, blocked)
-    VALUES (p_id, p_title, p_kh_title, p_sub_title, p_kh_sub_title, p_blocked);
+    INSERT INTO public.tbl_content(id, title, kh_title, sub_title, kh_sub_title, create_time, blocked)
+    VALUES (p_id, p_title, p_kh_title, p_sub_title, p_kh_sub_title, p_create_time, p_blocked);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -204,7 +206,7 @@ $$ LANGUAGE plpgsql;
 #### >>> This is sample script to call functions to insert data:
 ```
 -- Call the function to insert a row into tbl_content
-SELECT insert_into_tbl_content('your_id_value', 'your_title_value', 'your_kh_title_value', 'your_sub_title_value', 'your_kh_sub_title_value', false);
+SELECT insert_into_tbl_content('your_id_value', 'your_title_value', 'your_kh_title_value', 'your_sub_title_value', 'your_kh_sub_title_value', 'your_create_time_value', false);
 -- Call the function to insert a row into tbl_description
 SELECT insert_into_tbl_description('your_id_value', 'your_text_value', 'your_kh_text_value', false, 'your_content_id_value');
 -- Call the function to insert a row into tbl_media
