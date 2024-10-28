@@ -100,8 +100,8 @@ CREATE TABLE tbl_content (
 -- Create table tbl_description
 CREATE TABLE tbl_description (
     id VARCHAR(31) PRIMARY KEY NOT NULL,
-    text VARCHAR(4159),
-    kh_text VARCHAR(8319),
+    text VARCHAR(4095),
+    kh_text VARCHAR(8191),
     blocked BOOLEAN,
     content_id VARCHAR(31),
     FOREIGN KEY (content_id) REFERENCES tbl_content(id)
@@ -112,6 +112,7 @@ CREATE TABLE tbl_media (
     id VARCHAR(31) PRIMARY KEY NOT NULL,
     url VARCHAR(255),
     name VARCHAR(255),
+    note VARCHAR(2047),
     blocked BOOLEAN,
     content_id VARCHAR(31),
     FOREIGN KEY (content_id) REFERENCES tbl_content(id)
@@ -156,8 +157,8 @@ $$ LANGUAGE plpgsql;
 -- Create a function for inserting a row into tbl_description
 CREATE OR REPLACE FUNCTION insert_into_tbl_description(
     p_id VARCHAR(31),
-    p_text VARCHAR(4159),
-    p_kh_text VARCHAR(8319),
+    p_text VARCHAR(4095),
+    p_kh_text VARCHAR(8191),
     p_blocked BOOLEAN,
     p_content_id VARCHAR(31)
 )
@@ -173,13 +174,14 @@ CREATE OR REPLACE FUNCTION insert_into_tbl_media(
     p_id VARCHAR(31),
     p_url VARCHAR(255),
     p_name VARCHAR(255),
+    p_note VARCHAR(2047),
     p_blocked BOOLEAN,
     p_content_id VARCHAR(31)
 )
 RETURNS VOID AS $$
 BEGIN
-    INSERT INTO public.tbl_media(id, url, name, blocked, content_id)
-    VALUES (p_id, p_url, p_name, p_blocked, p_content_id);
+    INSERT INTO public.tbl_media(id, url, name, note, blocked, content_id)
+    VALUES (p_id, p_url, p_name, p_note, p_blocked, p_content_id);
 END;
 $$ LANGUAGE plpgsql;
 
@@ -210,7 +212,7 @@ SELECT insert_into_tbl_content('your_id_value', 'your_title_value', 'your_kh_tit
 -- Call the function to insert a row into tbl_description
 SELECT insert_into_tbl_description('your_id_value', 'your_text_value', 'your_kh_text_value', false, 'your_content_id_value');
 -- Call the function to insert a row into tbl_media
-SELECT insert_into_tbl_media('your_id_value', 'your_url_value', 'your_name_value', false, 'your_content_id_value');
+SELECT insert_into_tbl_media('your_id_value', 'your_url_value', 'your_name_value', 'your_note_value', false, 'your_content_id_value');
 -- Call the function to insert a row into tbl_youtube
 SELECT insert_into_tbl_youtube('your_id_value', 'your_title_value', 'your_kh_title_value', 'your_video_url_value', 'your_duration_value', 'your_publish_date_value', 'your_thumbnail_url_value', 'your_thumbnail_name_value', false, 'your_content_id_value');
 ```
