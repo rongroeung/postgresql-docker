@@ -18,6 +18,8 @@ mkdir /opt/postgres-data
 docker run --name postgres-db -p 5432:5432 --restart always \
 -e POSTGRES_PASSWORD=Passw0rd \
 -v /opt/postgres-data:/var/lib/postgresql/data \
+--cpus="2" \
+--memory="4g" \
 -d postgres
 ```
 #### >>> --name postgres-db: Assigns a name to the container ("postgres-db" in this case).
