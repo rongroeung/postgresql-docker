@@ -21,10 +21,12 @@ docker run --name postgres-db -p 5432:5432 --restart always \
 -d postgres
 ```
 #### >>> --name postgres-db: Assigns a name to the container ("postgres-db" in this case).
-#### >>> --restart always: Set restart policy of container to always
+#### >>> --restart always: Configures the container to automatically restart whenever it stops, ensuring the database service is always running.
 #### >>> -e POSTGRES_PASSWORD=Passw0rd: Sets the password for the PostgreSQL superuser "postgres" to "Passw0rd".
-#### >>> -v /opt/postgres-data:/var/lib/postgresql/data: This is the key part for mounting the volume.
-#### >>> -d: Runs the container in the background.
+#### >>> -v /opt/postgres-data:/var/lib/postgresql/data: Creates a bind mount that links the /opt/postgres-data directory on your host machine to the /var/lib/postgresql/data directory inside the container. This is crucial for data persistence, ensuring your database files remain intact even if the container is removed.
+#### >>> --cpus="2": Limits the container to a maximum of two CPU cores. This prevents the database from consuming all available CPU resources on your host.
+#### >>> --memory="4g": Sets a memory limit of 4 gigabytes for the container. This prevents the container from using too much RAM and impacting other services on your server.
+#### >>> -d postgres: Runs the container in detached mode (-d) in the background and specifies the image to use, which is the official postgres image.
 
 #### >>> This command connects you to the PostgreSQL server running in the container as the user "postgres".
 
