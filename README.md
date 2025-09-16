@@ -11,13 +11,13 @@ docker pull postgres
 ### 2. Run a PostgreSQL Container
 #### >>> Create local path where we want to store the PostgreSQL data:
 ```
-mkdir /opt/postgres-data
+mkdir /opt/volume-mount/postgres-data
 ```
 #### >>> You can run a PostgreSQL container with the following command:
 ```
 docker run --name postgres-db -p 5432:5432 --restart always \
 -e POSTGRES_PASSWORD=Passw0rd \
--v /opt/postgres-data:/var/lib/postgresql/data \
+-v /opt/volume-mount/postgres-data:/var/lib/postgresql/data \
 --cpus="2" \
 --memory="4g" \
 -d postgres
